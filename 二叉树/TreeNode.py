@@ -19,12 +19,13 @@ class TreeHander(object):
             return
         # 前序遍历的第一个元素即为根元素
         # 找出根元素在中序遍历中的索引
-        mid_index = mid.index(pre[0])
+        # 知道root的索引就可以知道各左、右子树的节点总数
+        root_index = mid.index(pre[0])
         # 实例化根节点
         root = TreeNode(pre[0])
         # 重构左右子树
-        root.left = cls.reConsTreeForPre(pre[1:mid_index+1], mid[:mid_index])
-        root.right = cls.reConsTreeForPre(pre[mid_index+1:], mid[mid_index+1:])
+        root.left = cls.reConsTreeForPre(pre[1:root_index+1], mid[:root_index])
+        root.right = cls.reConsTreeForPre(pre[root_index+1:], mid[root_index+1:])
         return root
 
     @classmethod
