@@ -61,6 +61,6 @@ class Solution(object):
 
 if __name__ == "__main__":
     tree = [3,9,20,None,None,15,7]
-    root = TreeHander.reConsTree_for_level(tree)
+    root = TreeHander.reConsTreeForLevel(tree)
     isBlanced = Solution().isBalanced(root)
     print(isBlanced)

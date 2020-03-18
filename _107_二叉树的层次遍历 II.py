@@ -53,7 +53,7 @@ class Solution(object):
 
 if __name__ == "__main__":
     arr = [3,9,20,None,None,15,7]
-    root = TreeHander.reConsTree_for_level(arr)
+    root = TreeHander.reConsTreeForLevel(arr)
 
     value = Solution().levelOrderBottom(root)
     print(value)
