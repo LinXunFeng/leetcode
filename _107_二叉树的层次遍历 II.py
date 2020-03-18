@@ -21,13 +21,7 @@
 链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
-
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
+from TreeNode import TreeNode, TreeHander
 
 class Solution(object):
     def levelOrderBottom(self, root):
@@ -58,12 +52,8 @@ class Solution(object):
 
 
 if __name__ == "__main__":
-    # arr = [3,9,20,null,null,15,7]
-    root = TreeNode(3)
-    root.left = TreeNode(9)
-    root.right = TreeNode(20)
-    root.right.left = TreeNode(15)
-    root.right.right = TreeNode(7)
+    arr = [3,9,20,None,None,15,7]
+    root = TreeHander.reConsTree_for_level(arr)
 
     value = Solution().levelOrderBottom(root)
     print(value)
