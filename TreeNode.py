@@ -97,6 +97,25 @@ class TreeHander(object):
         cls.preOrderTreeNode(root.left)
         cls.preOrderTreeNode(root.right)
 
+    @classmethod
+    def levelOrderTreeNode(cls, root):
+        if root is None:
+            return
+        stack = [root]
+        while stack:
+            tmpStack = []
+            for node in stack:
+                print(node.val, end=" ")
+                if node.left is not None:
+                    tmpStack.append(node.left)
+                if node.right is not None:
+                    tmpStack.append(node.right)
+            
+            stack = tmpStack
+            tmpStack = []
+
+
+
 
 if __name__ == "__main__":
     # pre = [4, 2, 1, 3, 5, 7, 6]
@@ -112,3 +131,4 @@ if __name__ == "__main__":
     level = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     head = TreeHander.reConsTreeForLevel(level)
     TreeHander.preOrderTreeNode(head)
+    # TreeHander.levelOrderTreeNode(head)
