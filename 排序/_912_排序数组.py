@@ -24,12 +24,13 @@
 import random
 
 class Solution(object):
-        
+
     def sortArray(self, nums):
         """
         :type nums: List[int]
         :rtype: List[int]
         """
+
         # 冒泡排序
         # for i in range(len(nums)-1):
         #     for j in range(1, len(nums)-i):
@@ -59,7 +60,13 @@ class Solution(object):
         #             nums[j] = nums[j-1]
         #             nums[j-1] = tmp
         # return nums
-        self.quickSort(0, len(nums)-1, nums)
+
+        # 快速排序
+        # self.quickSort(0, len(nums)-1, nums)
+        # return nums
+
+        # 堆排序
+        self.heapSort(nums)
         return nums
 
 
@@ -72,8 +79,13 @@ class Solution(object):
         self.quickSort(mid+1, end, nums)
 
     def partition(self, begin, end, nums):
-
-        index = begin + (end - begin) // 2
+        """
+        分区
+        """
+        # 将小于轴点的元素放在左边，大于轴点元素放在右边
+        # 遍历完成后，begin与end重合，即为轴点索引
+        # 给轴点元素赋值，并返回轴点的索引
+        index = begin + (end - begin) // 2 # index最好采用随机值，保证左右分区平衡
         self.swap(begin, index, nums)
         pivot = nums[begin]
         while begin < end:
@@ -94,13 +106,44 @@ class Solution(object):
         nums[begin] = pivot
         return begin
 
+    # 堆排序
+    def heapSort(self, nums):
+        nums_length = len(nums)
+        for i in range(nums_length-1):
+            # 将元素建堆
+            self.heapify(nums, nums_length-i)
+            # 将堆顶元素与最后元素交换 => 最后一位即为最大值
+            last = nums_length-1-i
+            self.swap(last, 0, nums)
+
+    def heapify(self, nums, n):
+        """
+        原地建堆(自下而上的下滤)
+        """
+        # 从下向上不断跟父节点比较，比父元素大就交换
+        for i in range(0, n)[::-1]:
+            current_index = i
+            node = nums[i]
+            parent_index = (current_index-1)//2
+            while parent_index >=0 and nums[parent_index] < node:
+                nums[current_index] = nums[parent_index]
+                current_index = parent_index
+                parent_index = (current_index-1)//2
+
+            if current_index != i:
+                nums[current_index] = node
+
+
     def swap(self, i, j, nums):
-        tmp = nums[i]
-        nums[i] = nums[j]
-        nums[j] = tmp
+        # tmp = nums[i]
+        # nums[i] = nums[j]
+        # nums[j] = tmp
+        nums[i], nums[j] = nums[j], nums[i];
+        
         
 
 if __name__ == "__main__":
+    # nums = [1, 2, 3, 4, 5]
     nums = [5,2,3,1]
     # nums = [5,1,1,2,0,0]
     res = Solution().sortArray(nums)
