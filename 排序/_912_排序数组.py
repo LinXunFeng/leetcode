@@ -53,6 +53,7 @@ class Solution(object):
         # return nums
 
         # 插入排序
+        # 【针对 小规模数据 或 基本有序 时十分高效】
         # for i in range(1, len(nums)):
         #     for j in range(1, i+1)[::-1]:
         #         if nums[j] < nums[j-1]:
@@ -66,8 +67,26 @@ class Solution(object):
         # return nums
 
         # 堆排序
-        self.heapSort(nums)
+        # (选择排序的升级版)
+        # self.heapSort(nums)
+        # return nums
+
+        # 希尔排序
+        # (插入排序的升级版)
+        # 以增量组成小组，对该小组进行插入排序，形成部分有序
+        # 每次都缩小增量，重复上一步的操作
+        # 最后一次排序时，增量为1，此时的数组已经达到基本有序
+        length = len(nums)
+        gap = length // 2
+        while gap >= 1:
+            for i in range(gap, length):
+                j = i
+                while j>=gap and nums[j-gap]>nums[j]:
+                    nums[j],nums[j-gap] = nums[j-gap],nums[j]
+                    j-= gap
+            gap = gap // 2
         return nums
+
 
 
     # 快速排序
