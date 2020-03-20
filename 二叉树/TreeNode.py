@@ -66,15 +66,31 @@ class TreeHander(object):
         return node_list[0]
 
     @classmethod
-    def postOrderTreeNode(cls, root):
+    def preOrderTreeNode(cls, root):
         """
-        后序遍历
+        前序遍历
         """
         if root is None:
             return
-        cls.postOrderTreeNode(root.left)
-        cls.postOrderTreeNode(root.right)
         print(root.val,  end=" ")
+        cls.preOrderTreeNode(root.left)
+        cls.preOrderTreeNode(root.right)
+    
+    @classmethod
+    def preOrderTreeNode2(cls, root):
+        """
+        前序遍历(非递规)
+        """
+        if root is None:
+            return
+        stack = []
+        while stack or root:
+            while root:
+                print(root.val, end=" ")
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            root = root.right
 
     @classmethod
     def midOrderTreeNode(cls, root):
@@ -88,15 +104,51 @@ class TreeHander(object):
         cls.midOrderTreeNode(root.right)
 
     @classmethod
-    def preOrderTreeNode(cls, root):
+    def midOrderTreeNode2(cls, root):
         """
-        前序遍历
+        中序遍历(非递规)
         """
         if root is None:
             return
+        stack = []
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            print(root.val, end=" ")
+            root = root.right
+
+    @classmethod
+    def postOrderTreeNode(cls, root):
+        """
+        后序遍历
+        """
+        if root is None:
+            return
+        cls.postOrderTreeNode(root.left)
+        cls.postOrderTreeNode(root.right)
         print(root.val,  end=" ")
-        cls.preOrderTreeNode(root.left)
-        cls.preOrderTreeNode(root.right)
+
+    @classmethod
+    def postOrderTreeNode2(cls, root):
+        """
+        后序遍历(非递规)
+        """
+        if root is None:
+            return
+        stack = []
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left if root.left else root.right
+            root = stack.pop() # 左子树或右子树遍历完了，取父节点
+            print(root.val, end=" ")
+            if stack and stack[-1].left == root: # 父节点是祖父节点的左子节点
+                root = stack[-1].right # 开始遍历右子树
+            else:
+                root = None
+
 
     @classmethod
     def levelOrderTreeNode(cls, root):
@@ -131,5 +183,10 @@ if __name__ == "__main__":
 
     level = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     head = TreeHander.reConsTreeForLevel(level)
-    TreeHander.preOrderTreeNode(head)
+    # TreeHander.preOrderTreeNode(head)
+    # TreeHander.preOrderTreeNode2(head)
+    # TreeHander.midOrderTreeNode(head)
+    # TreeHander.midOrderTreeNode2(head)
+    # TreeHander.postOrderTreeNode(head)
+    TreeHander.postOrderTreeNode2(head)
     # TreeHander.levelOrderTreeNode(head)
