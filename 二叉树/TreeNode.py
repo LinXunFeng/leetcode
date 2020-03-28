@@ -39,7 +39,7 @@ class TreeHander(object):
             return
         root_index = mid.index(end[-1])
         root = TreeNode(end[-1])
-        root.left = cls.reConsTreeForEnd(end[0:root_index], mid[:root_index])
+        root.left = cls.reConsTreeForEnd(end[:root_index], mid[:root_index])
         root.right = cls.reConsTreeForEnd(end[root_index:len(end)-1], mid[root_index+1:])
         return root
 
