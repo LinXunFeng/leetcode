@@ -76,17 +76,20 @@ class Solution(object):
         # 以增量组成小组，对该小组进行插入排序，形成部分有序
         # 每次都缩小增量，重复上一步的操作
         # 最后一次排序时，增量为1，此时的数组已经达到基本有序
-        length = len(nums)
-        gap = length // 2
-        while gap >= 1:
-            for i in range(gap, length):
-                j = i
-                while j>=gap and nums[j-gap]>nums[j]:
-                    nums[j],nums[j-gap] = nums[j-gap],nums[j]
-                    j-= gap
-            gap = gap // 2
-        return nums
+        # length = len(nums)
+        # gap = length // 2
+        # while gap >= 1:
+        #     for i in range(gap, length):
+        #         j = i
+        #         while j>=gap and nums[j-gap]>nums[j]:
+        #             nums[j],nums[j-gap] = nums[j-gap],nums[j]
+        #             j-= gap
+        #     gap = gap // 2
+        # return nums
 
+        # 归并排序
+        self.mergeSort(nums)
+        return nums
 
 
     # 快速排序
@@ -151,6 +154,37 @@ class Solution(object):
 
             if current_index != i:
                 nums[current_index] = node
+
+    # 归并排序
+    def mergeSort(self, nums):
+        self.sort(nums, 0, len(nums))
+
+    def sort(self, nums, begin, end):
+        if end - begin < 2:
+            return
+        mid = (end - begin) // 2 + begin
+        self.sort(nums, begin, mid)
+        self.sort(nums, mid, end)
+        self.merge(nums, begin, end, mid)
+
+    def merge(self, nums, begin, end, mid):
+        li = 0
+        le = mid - begin
+        ri = mid
+        re = end
+        oi = begin # 原数组起点下标
+        arr = []
+        for i in range(le): # 备份左边数组
+            arr.append(nums[i+begin])
+        while li < le:
+            if ri < re and nums[ri] < arr[li]:
+                nums[oi] = nums[ri]
+                ri += 1
+                oi += 1
+            else:
+                nums[oi] = arr[li]
+                li += 1
+                oi += 1
 
 
     def swap(self, i, j, nums):
