@@ -34,13 +34,16 @@ class Solution(object):
         """
         if root is None:
             return True
-        if root.left is None and root.right is not None:
+        return self.checkLeftAndRightNode(root.left, root.right)
+
+    def checkLeftAndRightNode(self, left, right):
+        if left is None and right is None:
+            return True
+        if left is None or right is None:
             return False
-        if root.left is not None and root.right is None:
+        if left.val != right.val:
             return False
-        if root.left.val != root.right.val:
-            return False
-        return self.isSymmetric(root.left) and self.isSymmetric(root.right)
+        return self.checkLeftAndRightNode(left.left, right.right) and self.checkLeftAndRightNode(left.right, right.left)
         
 
 
