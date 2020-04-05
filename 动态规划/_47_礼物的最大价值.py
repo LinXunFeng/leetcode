@@ -49,8 +49,8 @@ class Solution(object):
         if grid is None or len(grid) == 0:
           return 0
         rows = len(grid) # 行数
-        cols = len(grid[0])
-        dp = [[0] * cols for i in range(rows)]
+        cols = len(grid[0]) # 列数
+        dp = [[0] * cols for i in range(rows)] # 初始化 rows * cols 的二维数组
         dp[0][0] = grid[0][0]
         # 第0行 与 第0列 上的最大值都是当前值与前一个最大值相加所得
         for col in range(1, cols):
@@ -61,11 +61,26 @@ class Solution(object):
         for row in range(1, rows):
           for col in range(1, cols):
             dp[row][col] = max(dp[row-1][col], dp[row][col-1]) + grid[row][col]
-            
+
         return dp[rows-1][cols-1]
+
+    def maxValue2(self, grid):
+        """
+        一维DP
+        dp存放的是上一行的所有最大值
+        """
+        if grid is None or len(grid) == 0:
+          return 0
+        rows = len(grid)
+        cols = len(grid[0])
+        dp = [0] * (cols+1)
+        for row in range(rows):
+          for col in range(cols):
+            dp[col+1] = max(dp[col], dp[col+1]) + grid[row][col]
+        return dp[-1] 
 
 
 if __name__ == "__main__":
     grid = [[1,3,1],[1,5,1],[4,2,1]]
-    res = Solution().maxValue(grid)
+    res = Solution().maxValue2(grid)
     print(res)
