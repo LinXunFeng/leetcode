@@ -113,7 +113,7 @@ class Solution(object):
           return res
 
         n = len(prices)
-        if prices is None or n == 0:
+        if prices is None or n < 2:
           return 0
         
         # 计算相邻两天的差值列表
@@ -129,6 +129,7 @@ class Solution(object):
 
 if __name__ == "__main__":
     prices = [7,1,5,3,6,4]
+    prices = [1]
     # res = Solution().maxProfit(prices)
     # res = Solution().maxProfit2(prices)
     res = Solution().maxProfit3(prices)
