@@ -50,9 +50,7 @@ class Solution(object):
         left = self.lowestCommonAncestor(root.left, p, q)
         # 去右边查找p、q的最近公共祖先
         right = self.lowestCommonAncestor(root.right, p, q)
-        if left is None and right is None:
+        if left is not None and right is not None:
           return root
-        if left is None:
-          return right
-        return left
+        return left if right is None else right
     
