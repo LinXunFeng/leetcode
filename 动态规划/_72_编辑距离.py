@@ -71,6 +71,17 @@ dp[i][j]：从 word1[0, i) 转换成 word2[0, j)的最少操作数
           直接 word1[0, i-1) 转换成 word2[0, j-1) 后，不需要再做其它操作
           dp[i][j] = dp[i-1][j-1]
 
+    取这四种情况的最小值即可：
+
+    top = dp[i][j] = 1 + dp[i-1][j]
+    left = dp[i][j] = dp[i][j-1] + 1  
+    leftTop = dp[i][j] = dp[i-1][j-1]
+    if word1[i-1] != word2[j-1]:
+      leftTop += 1
+    
+    dp[i][j] = min(min(top, left), leftTop)
+
+从上到下，一行行计算出 dp[i][j] 的值，进而求出最终的结果
 """
 class Solution(object):
     def minDistance(self, word1, word2):
